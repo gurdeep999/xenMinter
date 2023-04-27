@@ -9,8 +9,8 @@ const { rpc, sponsorPrivateKey } = constants
 const provider = new providers.JsonRpcProvider(rpc)
 
 const manualGasLimit = 165000			// you can play around with this. It takes around 160k gas units to claimRank. Any less it will fail/revert
-const amountOWalletsToClaimFrom = 10 	//Example 10  (make sure you have enough funds)
-const term = 339  						// term days after which you will be able to claim your tokens
+const amountOWalletsToClaimFrom = 100 	// Example 10  (make sure you have enough funds)
+const term = 365  						// term days after which you will be able to claim your tokens
  
 const xenMultiClaimRank = async (amountOfWallets, term, provider) => {
 	let wallets = generateWallets(Wallet, amountOfWallets)
@@ -40,7 +40,7 @@ const xenMultiClaimRank = async (amountOfWallets, term, provider) => {
 			)
 			return receipt
 		},
-		{ concurrency: 5 }
+		{ concurrency: 5 }   // high concurrency -> faster -> more likely to spike gas prices  (optimal range: 3-5)
 	)
 
 	let privateKeys = []
